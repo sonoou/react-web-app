@@ -4,7 +4,8 @@ import Skeleton from "./Skeleton";
 
 export const ProductCard = () => {
   const [listOfProduct, setListOfProduct] = useState([]);
-
+  const [searchText, setSearchText] = useState("");
+  const [allProduct, setAllProduct] = useState([]);
   useEffect(() => {
     fetchData();
   }, []);
@@ -12,19 +13,36 @@ export const ProductCard = () => {
   const fetchData = async () => {
     const data = await fetch("https://fakestoreapi.com/products");
     const resData = await data.json();
-    console.log(resData);
     setListOfProduct(resData);
-  }
+    setAllProduct(resData);
+  };
 
-  if(listOfProduct.length === 0){
-    return <Skeleton/>; 
-  }
-
-  return (
+  return listOfProduct.length === 0 ? (
+    <Skeleton />
+  ) : (
     <div>
+      <div style={{ marginTop: "10px" }}>
+        <input
+          type="text"
+          onChange={(e) => {
+            setSearchText(e.target.value);
+          }}
+          value={searchText}
+        />
+        <button
+          onClick={() => {
+            const filteredData = allProduct.filter((product) => {
+              return (product.title.toLowerCase().includes(searchText.toLowerCase()));
+            });
+            setListOfProduct(filteredData);
+          }}
+        >
+          Search
+        </button>
+      </div>
       <button
         onClick={() => {
-          const filteredProduct = listOfProduct.filter((productInfo) => {
+          const filteredProduct = allProduct.filter((productInfo) => {
             return productInfo.rating.rate >= 4;
           });
           setListOfProduct(filteredProduct);

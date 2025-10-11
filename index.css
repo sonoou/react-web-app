@@ -35,3 +35,15 @@
 .product > .product-img-container > .product-img {
   width: 100%;
 }
+
+.skeleton-common{
+  background: rgb(189, 189, 189);
+  margin-bottom: 30px;
+  border: 0px;
+  border-radius: 5px;
+}
+
+.skeleton-height{
+  width: 160px;
+  height: 20px;
+}
