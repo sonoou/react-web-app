@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [btnName, setBtnName] = useState("Light");
 
-  console.log("Navbar rendered");
-
   useEffect(() => {
     console.log("useEffect from Navbar");
   });
+
   return (
     <div className="navbar">
       <h1>LOGO</h1>
       <ul className="menu-items">
-        <li>MEN</li>
-        <li>WOMEN</li>
-        <li>KIDS</li>
-        <li>CART</li>
+        <li><Link to="/">HOME</Link></li>
+        <li><Link to="/men">MEN</Link></li>
+        <li><Link to="/women">WOMEN</Link></li>
+        <li><Link to="/kid">KID</Link></li>
+        <li><Link to="/cart">CART</Link></li>
         <button
           onClick={() => {
             btnName === "Light" ? setBtnName("Dark") : setBtnName("Light");
