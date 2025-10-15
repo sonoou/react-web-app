@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Product from "./Product";
 import Skeleton from "./Skeleton";
+import { Link } from "react-router-dom";
 
 export const ProductCard = () => {
   const [listOfProduct, setListOfProduct] = useState([]);
@@ -53,7 +54,12 @@ export const ProductCard = () => {
       </button>
       <div className="product-card">
         {listOfProduct.map((product) => {
-          return <Product key={product.id} productInfo={product} />;
+          return (
+            <Link key={product.id} to={`/product/${product.id}`}>
+            <Product productInfo={product} />
+            </Link>
+            
+          );
         })}
       </div>
     </div>
