@@ -9,6 +9,7 @@ import Women from "./component/Women";
 import Cart from "./component/Cart";
 import Error from "./component/Error";
 import ProductDetails from "./component/ProductDetails";
+import About from "./component/About";
 
 const App = () => (
   <div>
@@ -44,8 +45,12 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/product/:productId",
-        element: <ProductDetails />
-      }
+        element: <ProductDetails />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
     ],
     errorElement: <Error />,
   },
