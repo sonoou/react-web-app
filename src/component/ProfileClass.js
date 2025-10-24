@@ -2,32 +2,47 @@ import React from "react";
 
 class ProfileClass extends React.Component {
   constructor(props) {
+    console.log("constructor is called");
     super(props);
     this.state = {
-      count: 0,
-      count1: 0,
+      userDetails: null
     };
   }
 
-  render() {
+  // we use mount  for api call
+  async componentDidMount(){
+    const data = await fetch("https://api.github.com/users/sonoou");
+    const resData = await data.json();
+    this.setState({
+      userDetails: resData,
+    })
+    console.log("did mount");
+    this.timer = setInterval(() => {
+      console.log("Sonu MERN stack");
+    }, 1000);
+  }
+
+  componentDidUpdate(){
+    console.log("did update");
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.timer);
+    console.log("will unmount");
+  }
+
+  render(){
+    console.log("render");
+    if(this.state.userDetails === null){
+      return (<h1>Loading...</h1>);
+    }
+    const {name, avatar_url, email} = this.state.userDetails;
     return (
       <div>
         <h1>Profile class component</h1>
-        <h3>Name: {this.props.name}</h3>
-        <h3>Address: {this.props.address}</h3>
-        <h3>Email: {this.props.email}</h3>
-        <h3>Count: {this.state.count}</h3>
-        <h3>Count1: {this.state.count1}</h3>
-        <button
-          onClick={() => {
-            this.setState({
-              count: this.state.count + 1,
-              count1: this.state.count1 + 1,
-            });
-          }}
-        >
-          increment
-        </button>
+        <h3>Name: {name}</h3>
+        <img src={avatar_url} />
+        <h3>Email: {email}</h3>
       </div>
     );
   }

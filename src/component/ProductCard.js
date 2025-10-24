@@ -7,8 +7,16 @@ export const ProductCard = () => {
   const [listOfProduct, setListOfProduct] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [allProduct, setAllProduct] = useState([]);
+  
   useEffect(() => {
     fetchData();
+    const timer = setInterval(() => {
+      console.log("Sonu MERN Stack");
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    }
   }, []);
 
   const fetchData = async () => {

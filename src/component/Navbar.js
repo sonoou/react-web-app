@@ -5,7 +5,7 @@ const Navbar = () => {
   const [btnName, setBtnName] = useState("Light");
 
   useEffect(() => {
-    console.log("useEffect from Navbar");
+    // console.log("useEffect from Navbar");
   });
 
   return (
