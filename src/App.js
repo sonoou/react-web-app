@@ -9,7 +9,12 @@ import Women from "./component/Women";
 import Cart from "./component/Cart";
 import Error from "./component/Error";
 import ProductDetails from "./component/ProductDetails";
-import About from "./component/About";
+// import About from "./component/About";
+// import Grocery from "./component/Grocery";
+import { lazy, Suspense } from "react";
+
+const Grocery = lazy(() => import("./component/Grocery"));
+const About = lazy(() => import("./component/About"));
 
 const App = () => (
   <div>
@@ -49,7 +54,19 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About />,
+        element: (
+          <Suspense fallback={<h1>Loading...</h1>}>
+            <About />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/grocery",
+        element: (
+          <Suspense fallback={<h1>Loading...</h1>}>
+            <Grocery />
+          </Suspense>
+        ),
       },
     ],
     errorElement: <Error />,

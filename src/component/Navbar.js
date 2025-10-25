@@ -17,6 +17,7 @@ const Navbar = () => {
         <li><Link to="/women">WOMEN</Link></li>
         <li><Link to="/kid">KID</Link></li>
         <li><Link to="/cart">CART</Link></li>
+        <li><Link to="/grocery">GROCERY</Link></li>
         <li><Link to="/about">About</Link></li>
         <button
           onClick={() => {

@@ -10,13 +10,6 @@ export const ProductCard = () => {
   
   useEffect(() => {
     fetchData();
-    const timer = setInterval(() => {
-      console.log("Sonu MERN Stack");
-    }, 1000);
-
-    return () => {
-      clearInterval(timer);
-    }
   }, []);
 
   const fetchData = async () => {
