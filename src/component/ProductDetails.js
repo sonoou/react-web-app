@@ -11,16 +11,19 @@ const ProductDetails = () => {
     return (<h1>Loading...</h1>);
   }
 
-  const { image, title, price, rating } = singleProduct;
+  const { image, title, price, rating, description } = singleProduct;
 
   return singleProduct === null ? (<h1>Loading...</h1>) : (
-    <div className="product">
-      <div className="product-img-container">
-        <img className="product-img" src={image} />
+    <div className="max-w-5xl m-auto mt-10">
+      <div className="border border-gray-600 p-5 rounded-md">
+        <div className="w-72">
+          <img className="w-[100%]" src={image} />
+        </div>
+        <h4 className="font-bold text-xl">{title}</h4>
+        <p className="font-bold text-gray-700">{rating.rate} ratings</p>
+        <p className="font-bold text-gray-700">Price: {price}</p>
+        <p>{description}</p>
       </div>
-      <h4>{title}</h4>
-      <p>{rating.rate} ratings</p>
-      <p>Price: {price}</p>
     </div>
   );
 };

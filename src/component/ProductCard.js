@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Product from "./Product";
+import Product, { BestSellerProduct } from "./Product";
 import Skeleton from "./Skeleton";
 import { Link } from "react-router-dom";
 
@@ -7,7 +7,7 @@ export const ProductCard = () => {
   const [listOfProduct, setListOfProduct] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [allProduct, setAllProduct] = useState([]);
-  
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -19,47 +19,58 @@ export const ProductCard = () => {
     setAllProduct(resData);
   };
 
+  const BestSeller = BestSellerProduct(Product);
+
   return listOfProduct.length === 0 ? (
     <Skeleton />
   ) : (
     <div>
-      <div style={{ marginTop: "10px" }}>
-        <input
-          type="text"
-          onChange={(e) => {
-            setSearchText(e.target.value);
-          }}
-          value={searchText}
-        />
+      <div className="mt-10 flex space-x-10 mx-5">
+        <div>
+          <input
+            type="text"
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+            value={searchText}
+            className="border border-gray-700 rounded-md p-2"
+          />
+          <button
+            onClick={() => {
+              const filteredData = allProduct.filter((product) => {
+                return product.title
+                  .toLowerCase()
+                  .includes(searchText.toLowerCase());
+              });
+              setListOfProduct(filteredData);
+            }}
+            className="bg-purple-600 text-white rounded-md px-6 py-2"
+          >
+            Search
+          </button>
+        </div>
         <button
           onClick={() => {
-            const filteredData = allProduct.filter((product) => {
-              return (product.title.toLowerCase().includes(searchText.toLowerCase()));
+            const filteredProduct = allProduct.filter((productInfo) => {
+              return productInfo.rating.rate >= 4;
             });
-            setListOfProduct(filteredData);
+            setListOfProduct(filteredProduct);
           }}
+          className="bg-purple-600 text-white rounded-md px-6 py-2"
         >
-          Search
+          Top rated product
         </button>
       </div>
-      <button
-        onClick={() => {
-          const filteredProduct = allProduct.filter((productInfo) => {
-            return productInfo.rating.rate >= 4;
-          });
-          setListOfProduct(filteredProduct);
-        }}
-        style={{ marginTop: "10px" }}
-      >
-        Top rated product
-      </button>
-      <div className="product-card">
+
+      <div className="max-w-7xl mx-auto flex flex-wrap mt-3">
         {listOfProduct.map((product) => {
           return (
             <Link key={product.id} to={`/product/${product.id}`}>
-            <Product productInfo={product} />
+              {
+                product.rating.rate >= 4 ? <BestSeller productInfo={product} /> : <Product productInfo={product} />
+              }
+              
             </Link>
-            
           );
         })}
       </div>
